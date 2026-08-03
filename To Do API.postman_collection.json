@@ -92,7 +92,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"done\": false\n}"
+          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"completed\": false\n}"
         }
       ]
     },
@@ -171,7 +171,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.06780076114603562\",\n        \"title\": \"Estudar Node\",\n        \"description\": \"minha descrição de exemplo\",\n        \"done\": false\n    }\n]"
+          "body": "[\n    {\n        \"id\": \"0.06780076114603562\",\n        \"title\": \"Estudar Node\",\n        \"description\": \"minha descrição de exemplo\",\n        \"completed\": false\n    }\n]"
         },
         {
           "name": "200 - OK with completed filter",
@@ -230,7 +230,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.34579603429920414\",\n        \"title\": \"Tarefa completa 1\",\n        \"description\": \"\",\n        \"done\": true\n    },\n    {\n        \"id\": \"0.7455822635966525\",\n        \"title\": \"Tarefa completa 2\",\n        \"description\": \"\",\n        \"done\": true\n    }\n]"
+          "body": "[\n    {\n        \"id\": \"0.34579603429920414\",\n        \"title\": \"Tarefa completa 1\",\n        \"description\": \"\",\n        \"completed\": true\n    },\n    {\n        \"id\": \"0.7455822635966525\",\n        \"title\": \"Tarefa completa 2\",\n        \"description\": \"\",\n        \"completed\": true\n    }\n]"
         },
         {
           "name": "200 - OK with not completed filter",
@@ -289,7 +289,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.01922069615780697\",\n        \"title\": \"Tarefa sem fazer 1\",\n        \"description\": \"\",\n        \"done\": false\n    },\n    {\n        \"id\": \"0.9508605345001433\",\n        \"title\": \"Tarefa sem fazer 2\",\n        \"description\": \"\",\n        \"done\": false\n    }\n]"
+          "body": "[\n    {\n        \"id\": \"0.01922069615780697\",\n        \"title\": \"Tarefa sem fazer 1\",\n        \"description\": \"\",\n        \"completed\": false\n    },\n    {\n        \"id\": \"0.9508605345001433\",\n        \"title\": \"Tarefa sem fazer 2\",\n        \"description\": \"\",\n        \"completed\": false\n    }\n]"
         }
       ]
     },
@@ -373,7 +373,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"done\": false\n}"
+          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"completed\": false\n}"
         },
         {
           "name": "404 - Not Found",
@@ -533,7 +533,7 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"descrição editada '-'\",\n    \"done\": true\n}"
+          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"descrição editada '-'\",\n    \"completed\": true\n}"
         },
         {
           "name": "404 - Not Found",

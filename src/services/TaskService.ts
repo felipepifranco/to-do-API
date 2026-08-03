@@ -1,86 +1,86 @@
 import { type Task, type CreateTask } from "../domains/Task.js";
 import { DoesntExist } from "../types/Error.js";
 
-const localDB : Task[] = []; 
+import { prisma } from "../config/prismaClient.js";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+
 
 class TarefaService {
   
   // criar tarefas
-  create({ title, description = "" }: CreateTask) : Task {
+  async create({ title, description = "" }: CreateTask) : Promise<Task> {
     
     if (!title) {
       throw new Error("Nome da tarefa é obrigatório");
     }
     
-    // era objeto (json), mudei para Task a fim de garantir robustez ao lidar com o vetor
-    const newTask :Task = { 
-      id: Math.random().toString(), 
-      title, 
-      description, 
-      done: false 
-    };
-
-    localDB.push(newTask);
+    const newTask = await prisma.task.create({
+      data: {
+        title,
+        description,
+      }
+    });
     
     return newTask;
   }
   
   // listar tarefas
-  list(completed? : boolean) : Task[]{
-    // filtro
+  async list(completed? : boolean) : Promise<Task[]>{
+    const tasks = await prisma.task.findMany();
     if (completed !== undefined) {
-      return localDB.filter(task => task.done === completed);
+      return tasks.filter((task : Task)=> task.completed === completed);
     }
-    return localDB;
+    return tasks;
   }
 
-  // método auxiliar para procurar o index de uma tarefa
-  search_index(id: string) : number{
-    if (!id || id.trim() === "") {
-      throw new TypeError("id inválido!")
-    }
 
-    for (let i = 0; i < localDB.length; i++) {
-      const task = localDB[i]
-      
-      if(task && id === task.id){
-        return i;
-      }
-    }
-    // se chegou até aqui, não achou
-    throw new DoesntExist("Tarefa não encontrada!");
-  }
 
   // método para buscar uma tarefa específica pelo ID
-  search(id :string) : Task{
-    return localDB[this.search_index(id)]!
+  async search(id_ :number) : Promise<Task>{
+    const task = await prisma.task.findUnique({ where: { id: id_ } });
+
+    if(task === null){
+      throw new DoesntExist("Tarefa não encontrada!");
+    } else{
+      return task
+    }
   }
 
   // método para editar uma tarefa
-  editTask(id : string, title? : string, description? : string, completed?: boolean){
-    const index : number = this.search_index(id)
-    
-    if(title){
-      localDB[index]!.title = title;
-    }
-    
-    if(description){
-      localDB[index]!.description = description;
-    }
-    
-    if(completed !== undefined){
-      localDB[index]!.done = completed;
-    }
+  async editTask(id_ : number, title_? : string, description_? : string, completed_?: boolean){
+    try{
+      if(title_){
+        await prisma.task.update({ where: { id: id_ }, data: { title: title_ } })
+      }
+      
+      if(description_){
+        await prisma.task.update({ where: { id: id_ }, data: { description: description_ } })
+      }
+      
+      if(completed_ !== undefined){
+        await prisma.task.update({ where: { id: id_ }, data: { completed: completed_ } })
+      }
 
-    return localDB[index]
+      return this.search(id_);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
+        throw new DoesntExist('Tarefa não encontrada.');
+      }
+      
+      throw error; 
+    }
   }
 
   // método para deletar uma tarefa
-  deleteTask(id:string): void{
-    //TODO: fazer 204 em vez de 404
-    const index = this.search_index(id);
-    
-    localDB.splice(index, 1);
+  async deleteTask(id_:number){    
+    try {
+      await prisma.task.delete({ where: { id: id_ } })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
+        throw new DoesntExist('Tarefa não encontrada.');
+      }
+      throw error; 
+    }
   }
 }
 

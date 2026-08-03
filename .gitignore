@@ -1,2 +1,5 @@
 shell.nix
 node_modules
+
+/generated/prisma
+.env
