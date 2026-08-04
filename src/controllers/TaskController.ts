@@ -13,10 +13,10 @@ class TarefaController {
       
       // 2. Chama o "Trabalhador" (Service) para fazer a lógica
       const service = new TarefaService();
-      const tarefa = await service.create({ title, description });
+      const task = await service.create({ title, description });
       
       // 3. Devolve a resposta (trabalho de Gerente)
-      return res.status(201).json(tarefa);
+      return res.status(201).json(task);
       
     } catch (error) {
       // 4. Se o "Trabalhador" der um erro (ex: "Nome é obrigatório"),
