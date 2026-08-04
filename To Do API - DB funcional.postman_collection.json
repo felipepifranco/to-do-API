@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "e52e2560-6c97-462e-bd12-dbe975c649fc",
-    "name": "To Do API",
+    "_postman_id": "c1200635-c25c-4181-bcf1-8fc572d07e2d",
+    "name": "To Do API - DB funcional",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "56961723",
-    "_collection_link": "https://go.postman.co/collection/56961723-e52e2560-6c97-462e-bd12-dbe975c649fc?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/56961723-c1200635-c25c-4181-bcf1-8fc572d07e2d?source=collection_link"
   },
   "item": [
     {
@@ -34,13 +34,13 @@
       },
       "response": [
         {
-          "name": "201 - created",
+          "name": "201 - tarefa criada",
           "originalRequest": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\"\n}",
+              "raw": "{\n    \"title\": \"Minha primeira tarefa\", // string\n    \"description\": \"uma breve descrição\" // string\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -72,15 +72,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "109"
+              "value": "135"
             },
             {
               "key": "ETag",
-              "value": "W/\"6d-4jQTJQ1O2ChxdZuPChulUDGKDNw\""
+              "value": "W/\"87-TExfOEfFV1Y2fYxAUlwFiuUO1R4\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:14:10 GMT"
+              "value": "Tue, 04 Aug 2026 01:25:42 GMT"
             },
             {
               "key": "Connection",
@@ -92,7 +92,68 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"completed\": false\n}"
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Minha primeira tarefa\",\n    \"description\": \"uma breve descrição\",\n    \"completed\": false,\n    \"createdAt\": \"2026-08-04T01:25:42.627Z\"\n}"
+        },
+        {
+          "name": "400 - tarefa sem nome",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"\", // string\n    \"description\": \"descrição para tarefa sem nome\" // string\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/tasks/",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "tasks",
+                ""
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "41"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"29-xm2w/AfQe+m8CLt5EOfxuQ5OG84\""
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 01:27:18 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"erro\": \"Nome da tarefa é obrigatório\"\n}"
         }
       ]
     },
@@ -114,26 +175,32 @@
             {
               "key": "completed",
               "value": "",
-              "description": "Filtra as tarefas que estão completas ou não. Se estiver vazio, retorna todas",
-              "type": "text"
+              "description": "Filtra as tarefas que estão completas ou não. Se estiver vazio, retorna todas"
             }
           ]
         }
       },
       "response": [
         {
-          "name": "200 - OK with no filter",
+          "name": "200 - lista todas as tarefas",
           "originalRequest": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{url}}/tasks/",
+              "raw": "{{url}}/tasks/?completed=",
               "host": [
                 "{{url}}"
               ],
               "path": [
                 "tasks",
                 ""
+              ],
+              "query": [
+                {
+                  "key": "completed",
+                  "value": "",
+                  "description": "Filtra as tarefas que estão completas ou não. Se estiver vazio, retorna todas"
+                }
               ]
             }
           },
@@ -151,15 +218,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "111"
+              "value": "251"
             },
             {
               "key": "ETag",
-              "value": "W/\"6f-QgCPjAd9LbZF3OGkwDHcO+OPGS4\""
+              "value": "W/\"fb-dReeCc+6yfw5dfr16I/LhShJkb0\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:16:38 GMT"
+              "value": "Tue, 04 Aug 2026 01:32:40 GMT"
             },
             {
               "key": "Connection",
@@ -171,10 +238,10 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.06780076114603562\",\n        \"title\": \"Estudar Node\",\n        \"description\": \"minha descrição de exemplo\",\n        \"completed\": false\n    }\n]"
+          "body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Minha primeira tarefa\",\n        \"description\": \"uma breve descrição\",\n        \"completed\": false,\n        \"createdAt\": \"2026-08-04T01:25:42.627Z\"\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Minha tarefa completa\",\n        \"description\": \"\",\n        \"completed\": true,\n        \"createdAt\": \"2026-08-04T01:28:57.560Z\"\n    }\n]"
         },
         {
-          "name": "200 - OK with completed filter",
+          "name": "200 - lista tarefas completas",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -191,7 +258,7 @@
                 {
                   "key": "completed",
                   "value": "true",
-                  "type": "text"
+                  "description": "Filtra as tarefas que estão completas ou não. Se estiver vazio, retorna todas"
                 }
               ]
             }
@@ -210,15 +277,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "172"
+              "value": "115"
             },
             {
               "key": "ETag",
-              "value": "W/\"ac-Worxb9JLTG9niheeDc51OILQ6Fw\""
+              "value": "W/\"73-AaqWx1VuJcowlm6rqU7E6rOAEqA\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 22:19:43 GMT"
+              "value": "Tue, 04 Aug 2026 01:33:43 GMT"
             },
             {
               "key": "Connection",
@@ -230,10 +297,10 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.34579603429920414\",\n        \"title\": \"Tarefa completa 1\",\n        \"description\": \"\",\n        \"completed\": true\n    },\n    {\n        \"id\": \"0.7455822635966525\",\n        \"title\": \"Tarefa completa 2\",\n        \"description\": \"\",\n        \"completed\": true\n    }\n]"
+          "body": "[\n    {\n        \"id\": 2,\n        \"title\": \"Minha tarefa completa\",\n        \"description\": \"\",\n        \"completed\": true,\n        \"createdAt\": \"2026-08-04T01:28:57.560Z\"\n    }\n]"
         },
         {
-          "name": "200 - OK with not completed filter",
+          "name": "200 - lista tarefas incompletas",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -250,7 +317,7 @@
                 {
                   "key": "completed",
                   "value": "false",
-                  "type": "text"
+                  "description": "Filtra as tarefas que estão completas ou não. Se estiver vazio, retorna todas"
                 }
               ]
             }
@@ -269,15 +336,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "176"
+              "value": "137"
             },
             {
               "key": "ETag",
-              "value": "W/\"b0-ZmWGTMEU8rBXgxLO6/256gXKdvk\""
+              "value": "W/\"89-2BYdwqPdmvFCH9EttXBIHhHFksY\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 22:19:53 GMT"
+              "value": "Tue, 04 Aug 2026 01:34:29 GMT"
             },
             {
               "key": "Connection",
@@ -289,7 +356,7 @@
             }
           ],
           "cookie": [],
-          "body": "[\n    {\n        \"id\": \"0.01922069615780697\",\n        \"title\": \"Tarefa sem fazer 1\",\n        \"description\": \"\",\n        \"completed\": false\n    },\n    {\n        \"id\": \"0.9508605345001433\",\n        \"title\": \"Tarefa sem fazer 2\",\n        \"description\": \"\",\n        \"completed\": false\n    }\n]"
+          "body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Minha primeira tarefa\",\n        \"description\": \"uma breve descrição\",\n        \"completed\": false,\n        \"createdAt\": \"2026-08-04T01:25:42.627Z\"\n    }\n]"
         }
       ]
     },
@@ -311,14 +378,14 @@
             {
               "key": "id",
               "value": "",
-              "description": "id da tarefa. Deve ser uma string de valor entre 0 e 1"
+              "description": "id da tarefa."
             }
           ]
         }
       },
       "response": [
         {
-          "name": "200 - OK",
+          "name": "200 - tarefa encontrada",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -334,7 +401,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "0.06780076114603562"
+                  "value": "1",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -353,15 +421,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "109"
+              "value": "135"
             },
             {
               "key": "ETag",
-              "value": "W/\"6d-4jQTJQ1O2ChxdZuPChulUDGKDNw\""
+              "value": "W/\"87-TExfOEfFV1Y2fYxAUlwFiuUO1R4\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:17:00 GMT"
+              "value": "Tue, 04 Aug 2026 01:34:56 GMT"
             },
             {
               "key": "Connection",
@@ -373,10 +441,10 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"minha descrição de exemplo\",\n    \"completed\": false\n}"
+          "body": "{\n    \"id\": 1,\n    \"title\": \"Minha primeira tarefa\",\n    \"description\": \"uma breve descrição\",\n    \"completed\": false,\n    \"createdAt\": \"2026-08-04T01:25:42.627Z\"\n}"
         },
         {
-          "name": "404 - Not Found",
+          "name": "404 - tarefa não encontrada",
           "originalRequest": {
             "method": "GET",
             "header": [],
@@ -392,7 +460,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
+                  "value": "-1",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -419,7 +488,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:17:35 GMT"
+              "value": "Tue, 04 Aug 2026 01:35:14 GMT"
             },
             {
               "key": "Connection",
@@ -442,7 +511,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"title\": \"\", // string, opcional\n    \"description\": \"\", // string, opcional\n    \"completed\":  false // boolean, opcional\n}",
+          "raw": "{\n    \"title\": \"\", // string, opcional\n    \"description\": \"\", // string, opcional\n    \"completed\":  true // boolean, opcional\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -462,20 +531,20 @@
             {
               "key": "id",
               "value": "",
-              "description": "id da tarefa. Deve ser uma string de valor entre 0 e 1"
+              "description": "id da tarefa."
             }
           ]
         }
       },
       "response": [
         {
-          "name": "200 - OK",
+          "name": "200 - tarefa editada",
           "originalRequest": {
             "method": "PUT",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"description\": \"descrição editada '-'\",\n    \"completed\": true\n}",
+              "raw": "{\n    \"title\": \"Minha tarefa completa\", // string, opcional\n    \"description\": \"\", // string, opcional\n    \"completed\":  true // boolean, opcional\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -494,7 +563,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "0.06780076114603562"
+                  "value": "2",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -513,15 +583,15 @@
             },
             {
               "key": "Content-Length",
-              "value": "103"
+              "value": "113"
             },
             {
               "key": "ETag",
-              "value": "W/\"67-4Dk9AkI0kYFM80EEOg5ozWASJlU\""
+              "value": "W/\"71-o9iUBwlRZajcmBfWXenOnV2ayf8\""
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:21:15 GMT"
+              "value": "Tue, 04 Aug 2026 01:29:52 GMT"
             },
             {
               "key": "Connection",
@@ -533,16 +603,16 @@
             }
           ],
           "cookie": [],
-          "body": "{\n    \"id\": \"0.06780076114603562\",\n    \"title\": \"Estudar Node\",\n    \"description\": \"descrição editada '-'\",\n    \"completed\": true\n}"
+          "body": "{\n    \"id\": 2,\n    \"title\": \"Minha tarefa completa\",\n    \"description\": \"\",\n    \"completed\": true,\n    \"createdAt\": \"2026-08-04T01:28:57.560Z\"\n}"
         },
         {
-          "name": "404 - Not Found",
+          "name": "404 - tarefa não encontrada",
           "originalRequest": {
             "method": "PUT",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"description\": \"descrição editada '-'\",\n    \"completed\": true\n}",
+              "raw": "{\n    \"title\": \"tarefa inexistente\", // string, opcional\n    \"description\": \"\", // string, opcional\n    \"completed\":  true // boolean, opcional\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -561,7 +631,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
+                  "value": "-1",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -588,7 +659,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:21:45 GMT"
+              "value": "Tue, 04 Aug 2026 01:31:46 GMT"
             },
             {
               "key": "Connection",
@@ -605,7 +676,7 @@
       ]
     },
     {
-      "name": "New Request",
+      "name": "delete task",
       "request": {
         "method": "DELETE",
         "header": [],
@@ -622,14 +693,14 @@
             {
               "key": "id",
               "value": "",
-              "description": "id da tarefa. Deve ser uma string de valor entre 0 e 1"
+              "description": "id da tarefa."
             }
           ]
         }
       },
       "response": [
         {
-          "name": "204 - No Content",
+          "name": "204 - tarefa deletada",
           "originalRequest": {
             "method": "DELETE",
             "header": [],
@@ -645,7 +716,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "0.06780076114603562"
+                  "value": "2",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -660,7 +732,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:23:58 GMT"
+              "value": "Tue, 04 Aug 2026 01:36:11 GMT"
             },
             {
               "key": "Connection",
@@ -675,7 +747,7 @@
           "body": null
         },
         {
-          "name": "404 - Not Found",
+          "name": "404 - tarefa não encontrada",
           "originalRequest": {
             "method": "DELETE",
             "header": [],
@@ -691,7 +763,8 @@
               "variable": [
                 {
                   "key": "id",
-                  "value": "1"
+                  "value": "-1",
+                  "description": "id da tarefa."
                 }
               ]
             }
@@ -718,7 +791,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 02 Aug 2026 21:24:34 GMT"
+              "value": "Tue, 04 Aug 2026 01:36:26 GMT"
             },
             {
               "key": "Connection",
