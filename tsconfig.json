@@ -7,9 +7,14 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@generated/prisma": ["generated/prisma"]
+    },
+
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2023",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -35,6 +40,10 @@
 
     // Recommended Options
     "strict": true,
+    
+    "esModuleInterop": true, // config para prisma
+    "ignoreDeprecations": "6.0", // config para prisma
+
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,

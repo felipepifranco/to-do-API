@@ -6,17 +6,17 @@ import { DoesntExist } from '../types/Error.js';
 class TarefaController {
   
   // Um método para gerenciar a rota de CRIAR
-  create(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
       // 1. Pega os dados da requisição (trabalho de Gerente)
       const { title, description } = req.body; // desestruturação
       
       // 2. Chama o "Trabalhador" (Service) para fazer a lógica
       const service = new TarefaService();
-      const tarefa = service.create({ title, description });
+      const task = await service.create({ title, description });
       
       // 3. Devolve a resposta (trabalho de Gerente)
-      return res.status(201).json(tarefa);
+      return res.status(201).json(task);
       
     } catch (error) {
       // 4. Se o "Trabalhador" der um erro (ex: "Nome é obrigatório"),
@@ -29,7 +29,7 @@ class TarefaController {
   }
   
   // listar tarefas
-  list(req: Request, res: Response) {
+  async list(req: Request, res: Response) {
     const service = new TarefaService();
     try{
       // filtro
@@ -43,7 +43,7 @@ class TarefaController {
       }
       
       // listagem
-      const tasks = service.list(isCompleted);
+      const tasks = await service.list(isCompleted);
       return res.status(200).json(tasks);
 
     } catch(error){
@@ -55,11 +55,11 @@ class TarefaController {
   }
 
   // buscar tarefa especifica
-  search(req: Request, res: Response){
+  async search(req: Request, res: Response){
     try{
-      const id = req.params.id as string;
+      const id = Number(req.params.id);
       const service = new TarefaService();
-      const task = service.search(id);
+      const task = await service.search(id);
       return res.status(200).json(task);
 
     } catch (error){
@@ -73,13 +73,13 @@ class TarefaController {
   }
 
   // atualizar uma tarefa
-  editTask(req: Request, res: Response){
+  async editTask(req: Request, res: Response){
     try{
-      const id = req.params.id as string;
+      const id = Number(req.params.id);
       const { title, description, completed } = req.body;
 
       const service = new TarefaService();
-      const task = service.editTask(id, title, description, completed);
+      const task = await service.editTask(id, title, description, completed);
       
       return res.status(200).json(task);
       
@@ -94,12 +94,12 @@ class TarefaController {
     }
   }
 
-  delete(req: Request, res: Response){
+  async delete(req: Request, res: Response){
     try{
-      const id = req.params.id as string;
+      const id = Number(req.params.id);
       const service = new TarefaService();
       
-      service.deleteTask(id);
+      await service.deleteTask(id);
       return res.status(204).send();
 
     } catch (error){
